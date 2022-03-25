@@ -1,1 +1,12 @@
+server:
+  port: 8081
 
+spring:
+  datasource:
+    url:      ${SQL_CONNECTION}
+    username: ${SQL_USER}
+    password: ${SQL_PASSWORD}
+
+
+  flyway:
+    locations: classpath:sql/migration
