@@ -8,8 +8,7 @@ import static java.util.stream.Collectors.toSet;
 public enum UserRole {
 
     ADMIN,
-    USER,
-    GUEST;
+    USER;
 
     public static Set<UserRole> getUserRoles() {
         return stream(values())

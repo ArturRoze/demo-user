@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityNotFoundException;
+
 @Service
 public class UserServiceImpl implements UserService {
 
@@ -44,7 +46,8 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User findByLogin(String login) {
-        return userRepository.findByLogin(login);
+        return userRepository.findByLogin(login)
+                .orElseThrow(() -> new EntityNotFoundException("User not found"));
     }
 
     @Override
