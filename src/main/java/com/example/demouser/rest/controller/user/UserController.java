@@ -1,5 +1,6 @@
 package com.example.demouser.rest.controller.user;
 
+import com.example.demouser.model.domain.JwtUserDetails;
 import com.example.demouser.model.domain.annotation.Secured;
 import com.example.demouser.model.dto.user.UserDto;
 import com.example.demouser.service.converter.user.UserConverter;
@@ -7,6 +8,7 @@ import com.example.demouser.service.user.UserService;
 import com.example.demouser.service.validator.user.UserValidateService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -43,7 +45,8 @@ public class UserController {
     @PostMapping("/user")
     @ResponseStatus(HttpStatus.CREATED)
     @Secured(userRoles = ADMIN)
-    public UserDto saveUser(@RequestBody UserDto userDto) {
+    public UserDto saveUser(@AuthenticationPrincipal JwtUserDetails performer,
+                            @RequestBody UserDto userDto) {
 
         userValidateService.isValidDto(userDto);
 

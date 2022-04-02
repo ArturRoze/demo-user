@@ -19,6 +19,12 @@ public class TokenStorageImpl implements TokenStorage {
     }
 
     @Override
+    public boolean existsByUserLogin(String login, String token) {
+        return loginToTokens.get(login).stream()
+                .anyMatch(existingToken -> existingToken.equals(token));
+    }
+
+    @Override
     public Set<String> findByLogin(String login) {
         return new HashSet<>(loginToTokens.get(login));
     }

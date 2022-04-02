@@ -19,8 +19,11 @@ import java.util.ArrayList;
 import java.util.Base64;
 import java.util.Collection;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.Set;
+import java.util.TreeSet;
 
 import static java.nio.charset.StandardCharsets.UTF_8;
 
@@ -55,8 +58,8 @@ public class JwtTokenServiceImpl implements JwtTokenService {
         Claims claims = getAllClaimsFromToken(token);
 
         String login = claims.getSubject();
-        UserRole role = claims.get("role", UserRole.class);
-        Set<UserCapabilityName> capabilities = claims.get("capabilities", LinkedHashSet.class);
+        UserRole role = UserRole.valueOf(claims.get("role", String.class));
+        Set<UserCapabilityName> capabilities = new HashSet<>(claims.get("capabilities", ArrayList.class));
         Collection<SimpleGrantedAuthority> grantedAuthorities = extractedGrantedAuthorities(role, capabilities);
 
         return new JwtUserDetails(login, "", grantedAuthorities, role, capabilities);
@@ -68,7 +71,7 @@ public class JwtTokenServiceImpl implements JwtTokenService {
     }
 
     private Claims getAllClaimsFromToken(String token) {
-        return Jwts.parser().setSigningKey(jwtTokenConfig.getSecret()).parseClaimsJws(token).getBody();
+        return Jwts.parser().setSigningKey(buildDeserializeKey()).parseClaimsJws(token).getBody();
     }
 
     private Collection<SimpleGrantedAuthority> extractedGrantedAuthorities(UserRole role, Set<UserCapabilityName> capabilities) {
