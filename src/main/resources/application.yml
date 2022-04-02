@@ -3,11 +3,18 @@ server:
   error:
     include-stacktrace: never
 
+jwt:
+  secret: $2a$10$auYnnur2jOU0gk1JldFwterVL4kxkx9d4QbD/c3RhIibXk0u/TBtC
+  expires: 1d
+
 spring:
   datasource:
     url:      ${SQL_CONNECTION}
     username: ${SQL_USER}
     password: ${SQL_PASSWORD}
+
+  jpa:
+    open-in-view: false
 
   flyway:
     locations: classpath:sql/migration

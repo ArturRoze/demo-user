@@ -1,6 +1,6 @@
 package com.example.demouser.model.dto.user;
 
-import com.example.demouser.model.domain.UserRole;
+import com.example.demouser.model.domain.user.UserRole;
 
 import java.util.Objects;
 

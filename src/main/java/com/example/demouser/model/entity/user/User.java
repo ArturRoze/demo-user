@@ -1,19 +1,30 @@
 package com.example.demouser.model.entity.user;
 
-import com.example.demouser.model.domain.UserRole;
+import com.example.demouser.model.domain.capability.UserCapabilityName;
+import com.example.demouser.model.domain.user.UserRole;
+import com.example.demouser.model.entity.capability.UserCapability;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
+import java.util.Set;
+import java.util.stream.Collectors;
 
+import static java.util.stream.Collectors.toSet;
+import static javax.persistence.CascadeType.ALL;
 import static javax.persistence.EnumType.STRING;
+import static javax.persistence.FetchType.LAZY;
 import static javax.persistence.GenerationType.SEQUENCE;
 
 @Entity
@@ -36,8 +47,11 @@ public class User implements Serializable {
     private String email;
 
     @Enumerated(value = STRING)
-    @Column(name = "user_role", insertable = false, updatable = false)
+    @Column(name = "user_role", updatable = false)
     private UserRole userRole;
+
+    @OneToMany(cascade = ALL, orphanRemoval = true, mappedBy = "user", fetch = LAZY)
+    private List<UserCapability> userCapabilities = new ArrayList<>();
 
     public User() {
     }
@@ -80,6 +94,20 @@ public class User implements Serializable {
 
     public void setUserRole(UserRole userRole) {
         this.userRole = userRole;
+    }
+
+    public List<UserCapability> getUserCapabilities() {
+        return userCapabilities;
+    }
+
+    public void setUserCapabilities(List<UserCapability> userCapabilities) {
+        this.userCapabilities = userCapabilities;
+    }
+
+    public Set<UserCapabilityName> getCapabilityNames() {
+        return getUserCapabilities().stream()
+                .map(UserCapability::getUserCapabilityName)
+                .collect(toSet());
     }
 
     @Override

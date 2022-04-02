@@ -1,4 +1,4 @@
-package com.example.demouser.model.domain;
+package com.example.demouser.model.domain.user;
 
 import java.util.Set;
 
