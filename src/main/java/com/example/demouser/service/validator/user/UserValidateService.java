@@ -4,6 +4,6 @@ import com.example.demouser.model.dto.user.UserDto;
 
 public interface UserValidateService {
 
-    void isValidDto(UserDto userDto);
+    void validate(UserDto userDto);
 
 }

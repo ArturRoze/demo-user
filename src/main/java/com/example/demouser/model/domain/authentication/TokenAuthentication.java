@@ -1,6 +1,6 @@
-package com.example.demouser.service.authentication.impl;
+package com.example.demouser.model.domain.authentication;
 
-import com.example.demouser.model.domain.JwtUserDetails;
+import com.example.demouser.model.domain.user.JwtUserDetails;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 

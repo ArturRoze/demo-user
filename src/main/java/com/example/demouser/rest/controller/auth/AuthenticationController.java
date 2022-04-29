@@ -1,6 +1,6 @@
 package com.example.demouser.rest.controller.auth;
 
-import com.example.demouser.model.dto.authenticate.AuthUserDto;
+import com.example.demouser.model.dto.authentication.AuthUserDto;
 import com.example.demouser.service.authentication.AuthenticatedUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -9,6 +9,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
 
 import static org.springframework.http.HttpHeaders.ACCESS_CONTROL_EXPOSE_HEADERS;
 
@@ -36,4 +40,5 @@ public class AuthenticationController {
                 .header(ACCESS_CONTROL_EXPOSE_HEADERS, HttpHeaders.AUTHORIZATION)
                 .body(authUserDto);
     }
+
 }

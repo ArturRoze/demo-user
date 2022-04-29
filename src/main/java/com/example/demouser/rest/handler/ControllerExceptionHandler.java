@@ -35,6 +35,7 @@ public class ControllerExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(Exception.class) // handle all not control api exception
     public ResponseEntity<Object> handleInternalServerError(Exception e, WebRequest request) {
+        e.printStackTrace();
         return handleExceptionInternal(e, null, null, INTERNAL_SERVER_ERROR, request);
     }
 

@@ -1,11 +1,10 @@
 package com.example.demouser.rest.controller.user;
 
-import com.example.demouser.model.domain.JwtUserDetails;
+import com.example.demouser.model.domain.user.JwtUserDetails;
 import com.example.demouser.model.domain.annotation.Secured;
 import com.example.demouser.model.dto.user.UserDto;
 import com.example.demouser.service.converter.user.UserConverter;
 import com.example.demouser.service.user.UserService;
-import com.example.demouser.service.validator.user.UserValidateService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -27,17 +26,13 @@ import static com.example.demouser.model.domain.user.UserRole.ADMIN;
 @RequestMapping("api/v1")
 public class UserController {
 
-    private final UserValidateService userValidateService;
-
     private final UserService userService;
 
     private final UserConverter userConverter;
 
     @Autowired
-    public UserController(UserValidateService userValidateService,
-                          UserService userService,
+    public UserController(UserService userService,
                           UserConverter userConverter) {
-        this.userValidateService = userValidateService;
         this.userService = userService;
         this.userConverter = userConverter;
     }
@@ -47,8 +42,6 @@ public class UserController {
     @Secured(userRoles = ADMIN)
     public UserDto saveUser(@AuthenticationPrincipal JwtUserDetails performer,
                             @RequestBody UserDto userDto) {
-
-        userValidateService.isValidDto(userDto);
 
         return userConverter.convertToDto(userService.create(userDto));
     }

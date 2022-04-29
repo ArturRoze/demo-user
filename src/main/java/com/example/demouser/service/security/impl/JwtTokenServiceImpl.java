@@ -1,10 +1,10 @@
 package com.example.demouser.service.security.impl;
 
 import com.example.demouser.config.security.JwtTokenConfig;
-import com.example.demouser.model.domain.JwtUserDetails;
+import com.example.demouser.model.domain.user.JwtUserDetails;
 import com.example.demouser.model.domain.capability.UserCapabilityName;
 import com.example.demouser.model.domain.user.UserRole;
-import com.example.demouser.model.dto.authenticate.AuthUserDto;
+import com.example.demouser.model.dto.authentication.AuthUserDto;
 import com.example.demouser.service.security.JwtTokenService;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
@@ -20,10 +20,7 @@ import java.util.Base64;
 import java.util.Collection;
 import java.util.Date;
 import java.util.HashSet;
-import java.util.LinkedHashSet;
-import java.util.List;
 import java.util.Set;
-import java.util.TreeSet;
 
 import static java.nio.charset.StandardCharsets.UTF_8;
 

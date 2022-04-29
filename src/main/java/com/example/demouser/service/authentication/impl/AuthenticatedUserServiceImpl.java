@@ -1,7 +1,7 @@
 package com.example.demouser.service.authentication.impl;
 
 import com.example.demouser.exception.PasswordException;
-import com.example.demouser.model.dto.authenticate.AuthUserDto;
+import com.example.demouser.model.dto.authentication.AuthUserDto;
 import com.example.demouser.model.entity.user.User;
 import com.example.demouser.reporitory.storage.TokenStorage;
 import com.example.demouser.reporitory.user.UserRepository;
@@ -35,6 +35,18 @@ public class AuthenticatedUserServiceImpl implements AuthenticatedUserService {
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }
 
+    @Override
+    public User authenticateEntity(String login, String password) {
+        User user = userRepository.findByLoginWithCapabilities(login)
+                .orElseThrow(() -> new EntityNotFoundException("user not found"));
+
+        if (!isPasswordValid(password, user.getPassword())) {
+            throw new PasswordException("Password incorrect");
+        }
+
+        return user;
+    }    
+    
     @Override
     public AuthUserDto authenticate(String login, String password) {
         User user = userRepository.findByLoginWithCapabilities(login)

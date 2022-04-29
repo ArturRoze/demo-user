@@ -1,4 +1,4 @@
-package com.example.demouser.config.security;
+package com.example.demouser.config.rest;
 
 import com.example.demouser.rest.interseptor.UserRequestInterceptor;
 import org.springframework.beans.factory.annotation.Autowired;

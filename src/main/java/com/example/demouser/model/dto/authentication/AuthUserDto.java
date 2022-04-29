@@ -1,4 +1,4 @@
-package com.example.demouser.model.dto.authenticate;
+package com.example.demouser.model.dto.authentication;
 
 import com.example.demouser.model.domain.capability.UserCapabilityName;
 import com.example.demouser.model.domain.user.UserRole;

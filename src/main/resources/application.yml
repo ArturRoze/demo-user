@@ -8,6 +8,9 @@ jwt:
   expires: 1d
 
 spring:
+  application:
+    name: demo-user
+
   datasource:
     url:      ${SQL_CONNECTION}
     username: ${SQL_USER}
@@ -18,3 +21,53 @@ spring:
 
   flyway:
     locations: classpath:sql/migration
+
+  redis:
+    host: localhost
+    port: 6379
+
+  kafka:
+    bootstrap-servers: kafka:9092
+
+    consumer:
+      bootstrap-servers: kafka:9092
+      group-id: telegram_authenticate_group
+      heartbeat-interval: 3000
+      enable-auto-commit: true
+      auto-offset-reset: earliest
+      key-deserializer: org.apache.kafka.common.serialization.LongDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      auto-commit-interval: 5000
+      max-poll-records: 50
+
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.LongSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+      bootstrap-servers: kafka:9092
+
+    prefix:
+      telegram-message-topic: telegram-message
+      telegram-authenticate-topic: telegram-authenticate
+
+    listener:
+      ack-mode: TIME
+      concurrency: 10
+      poll-timeout: 500
+      ack-time: 5000
+
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            clientId: 803838921921-m6lrisg9od06q2jnoeki8fi1lt7a99ec.apps.googleusercontent.com
+            clientSecret: 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
+            scope:
+              - email
+              - profile
+              - openid
+
+eureka:
+  client:
+    service-url:
+      default-zone: http://localhost:8761/eureka

@@ -5,6 +5,7 @@ import com.example.demouser.model.entity.user.User;
 import com.example.demouser.reporitory.user.UserRepository;
 import com.example.demouser.service.converter.user.UserConverter;
 import com.example.demouser.service.user.UserService;
+import com.example.demouser.service.validator.user.UserValidateService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -14,6 +15,8 @@ import javax.persistence.EntityNotFoundException;
 @Service
 public class UserServiceImpl implements UserService {
 
+    private final UserValidateService userValidateService;
+
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
     private final UserConverter userConverter;
@@ -21,9 +24,11 @@ public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
 
     @Autowired
-    public UserServiceImpl(BCryptPasswordEncoder bCryptPasswordEncoder,
+    public UserServiceImpl(UserValidateService userValidateService,
+                           BCryptPasswordEncoder bCryptPasswordEncoder,
                            UserConverter userConverter,
                            UserRepository userRepository) {
+        this.userValidateService = userValidateService;
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
         this.userConverter = userConverter;
         this.userRepository = userRepository;
@@ -31,10 +36,13 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User create(UserDto userDto) {
+        userValidateService.validate(userDto);
+
         User user = userConverter.convertToEntity(userDto);
         user.setPassword(bCryptPasswordEncoder.encode(userDto.getPassword()));
 
-        return userRepository.save(user);
+        userRepository.save(user);
+        return user;
     }
 
     @Override

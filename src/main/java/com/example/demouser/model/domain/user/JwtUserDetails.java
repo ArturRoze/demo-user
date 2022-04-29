@@ -1,6 +1,5 @@
-package com.example.demouser.model.domain;
+package com.example.demouser.model.domain.user;
 
-import com.example.demouser.model.domain.user.UserRole;
 import com.example.demouser.model.domain.capability.UserCapabilityName;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.User;

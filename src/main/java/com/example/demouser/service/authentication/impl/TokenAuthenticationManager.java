@@ -1,6 +1,7 @@
 package com.example.demouser.service.authentication.impl;
 
-import com.example.demouser.model.domain.JwtUserDetails;
+import com.example.demouser.model.domain.authentication.TokenAuthentication;
+import com.example.demouser.model.domain.user.JwtUserDetails;
 import com.example.demouser.reporitory.storage.TokenStorage;
 import com.example.demouser.service.security.JwtTokenService;
 import io.jsonwebtoken.JwtException;

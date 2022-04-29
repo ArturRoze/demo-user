@@ -1,9 +1,9 @@
 package com.example.demouser.rest.interseptor;
 
-import com.example.demouser.model.domain.JwtUserDetails;
+import com.example.demouser.model.domain.user.JwtUserDetails;
 import com.example.demouser.model.domain.user.UserRole;
 import com.example.demouser.model.domain.annotation.Secured;
-import com.example.demouser.service.authentication.impl.TokenAuthentication;
+import com.example.demouser.model.domain.authentication.TokenAuthentication;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.AccessDeniedException;

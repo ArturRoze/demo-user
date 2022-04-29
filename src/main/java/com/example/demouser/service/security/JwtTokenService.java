@@ -1,7 +1,7 @@
 package com.example.demouser.service.security;
 
-import com.example.demouser.model.domain.JwtUserDetails;
-import com.example.demouser.model.dto.authenticate.AuthUserDto;
+import com.example.demouser.model.domain.user.JwtUserDetails;
+import com.example.demouser.model.dto.authentication.AuthUserDto;
 
 public interface JwtTokenService {
 

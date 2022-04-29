@@ -1,5 +1,6 @@
 package com.example.demouser.reporitory.storage;
 
+import java.util.List;
 import java.util.Set;
 
 public interface TokenStorage {
@@ -8,7 +9,9 @@ public interface TokenStorage {
 
     boolean existsByUserLogin(String login, String token);
 
-    Set<String> findByLogin(String login);
+    List<String> findByLogin(String login);
 
-    void deleteByLogin(String login);
+    void deleteAllByLogin(String login);
+
+    void deleteByLogin(String login, String token);
 }
